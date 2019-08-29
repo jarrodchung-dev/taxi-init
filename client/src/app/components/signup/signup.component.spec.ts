@@ -12,7 +12,7 @@ import { User } from "../../services/auth.service";
 import { SignUpComponent } from "./signup.component";
 
 
-fdescribe("SignUpComponent", () => {
+fdescribe("Sign Up Component", () => {
   // Adds instances of the SignUpComponent and HttpTestingController
   // aand ComponentFixture, a class for test cases
   let component: SignUpComponent;

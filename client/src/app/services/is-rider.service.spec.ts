@@ -2,7 +2,7 @@ import { IsRider } from "./is-rider.service";
 import { UserFactory } from "../testing/factories";
 
 
-fdescribe("Is Rider", () => {
+describe("Is Rider", () => {
   // Confirms only riders can access the "riders-only" route
   it("should allow a rider to access a route", () => {
     const isRider: IsRider = new IsRider();

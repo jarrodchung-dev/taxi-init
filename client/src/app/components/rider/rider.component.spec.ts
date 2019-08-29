@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from "@angular/core/testing";
 import { RouterTestingModule } from "@angular/router/testing";
 import { RiderComponent } from "./rider.component";
 
-fdescribe("Rider Component", () => {
+describe("Rider Component", () => {
   let component: RiderComponent;
   let fixture: ComponentFixture<RiderComponent>;
   beforeEach(() =>  {

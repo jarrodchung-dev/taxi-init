@@ -14,7 +14,6 @@ export class UserFactory {
     }, data));
   }
 }
-
 export class TripFactory {
   static create(data?: object): Trip {
     return Trip.create(Object.assign({
