@@ -1,0 +1,17 @@
+<div class="middle-center">
+  <h1 class="landing logo">
+    <div *ngIf="getUser(); the thenBlock; else elseBlock;"></div>
+    <ng-template #thenBlock>
+      <a class="btn btn-primary" [routerLink]="isRider() ? '/rider' : '/driver'">Dashboard</a>
+      <button class="btn btn-primary" (click)="logOut()">Log Out</button>
+    </ng-template>
+    <ng-tempalte #elseBlock>
+      <a class="btn btn-primary" [routerLink]="['http://localhost:8000/api/login']">Log In</a>
+      <a class="btn btn-primary" [routerLink]="['http://localhost:8000/api/signup']">Sign Up</a>
+    </ng-tempalte>
+  </h1>
+</div>
+
+<!-- 
+Landing page conditionally shows either "Sign Up" and "Log In" button if the user is not logged in or a "Log Out" button if the user has already been authenticated.
+-->

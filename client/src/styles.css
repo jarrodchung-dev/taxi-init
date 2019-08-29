@@ -1,0 +1,27 @@
+@import url("https://fonts.googleapis.com/css?family=Ubuntu");
+@import url("https://fonts.gstatic.com/s/ubuntu/v14/4iCs6KVjbNBYlgoKfw7z");
+
+
+.logo {
+  font-family: "Ubuntu", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+}
+
+.landing {
+  font-size: 72px;
+}
+
+.middle-center {
+  top:0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 100px;
+  height: 120px;
+  margin: auto auto;
+  position: absolute;
+  text-align: center;
+}
+
+/* not Über */
