@@ -36,7 +36,7 @@ fdescribe("Login Component", () => {
     component.user = UserFactory.create();
     component.user = {username: user.username, password: "test_password"};
     component.onSubmit();
-    const request = httpMock.expectOne("http://localhost:8000/api/login/");
+    const request = httpMock.expectOne("/api/login/");
     request.flush(user);
     expect(localStorage.getItem("taxi.user")).toEqual(JSON.stringify(user));
     expect(spy).toHaveBeenCalledWith("");

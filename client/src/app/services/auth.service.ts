@@ -50,7 +50,7 @@ export class AuthService {
     group: string,
     photo: any
   ): Observable<User> {
-    const url = "http://localhost:8000/api/signup/";
+    const url = "/api/signup/";
     const formData = new FormData();
     formData.append("username", username);
     formData.append("first_name", firstName);
@@ -66,7 +66,7 @@ export class AuthService {
     username: string, 
     password: string
   ): Observable<User> {
-    const url = "http://localhost:8000/api/login/";
+    const url = "/api/login/";
     return this.http.post<User>(url, {username, password}).pipe(
       tap(user => localStorage.setItem("taxi.user", JSON.stringify(user)))
       )
@@ -74,7 +74,7 @@ export class AuthService {
   // Logs user out of account
   logOut(
   ): Observable<any> {
-    const url = "http://localhost:8000/api/logout/";
+    const url = "/api/logout/";
     return this.http.post(url, null
   ).pipe(
     finalize(() => localStorage.removeItem("taxi.user")));

@@ -30,7 +30,7 @@
           <div class="form-group"><label for="photo">Photo:</label>
             <input id="photo" class="form-control-file" type="file" (change)="onChange($event)">
           </div>
-          <button class="btn btn-primary btn-block" type="submit" [disabled]="false">Sign up
+          <button class="btn btn-primary btn-block" type="submit" [disabled]="false">Sign Up
           </button>
         </form>
       </div>
@@ -38,7 +38,7 @@
     <p class="mt-3 text-center">
       <span>Already registered? </span>
       
-      <a [routerLink]="['http://localhost:8000/api/login/']">Log in!</a>
+      <a [routerLink]="['/login']">Log in!</a>
     </p>
   </div>
 </div>

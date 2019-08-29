@@ -40,7 +40,7 @@ export class SignUpComponent {
       this.user.photo
     // Redirects the user to "login" page if registered successfully
     ).subscribe(() => {
-      this.router.navigateByUrl("http://localhost:8000/api/login/") // "/login"
+      this.router.navigateByUrl("/login") // "/login"
     }, (error) => {
       console.error(error);
     });

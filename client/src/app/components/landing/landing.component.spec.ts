@@ -37,15 +37,13 @@ fdescribe("LandingComponent", () => {
       By.css("button.btn.btn-primary")
     );
   });
-
-  it("should allow a user to log out of an account", () => {
+  it("should allow users to log out successfully", () => {
     logOutButton.triggerEventHandler("click", null);
-    const request: TestRequest = httpMock.expectOne(
-      "http://localhost:8000/api/logout/");
+    const request: TestRequest = httpMock.expectOne("/api/logout/");
     request.flush({});
     expect(localStorage.getItem("taxi.user")).toBeNull();
   });
-  it("should determine if a user is currently logged in", () => {
+it("should determine if a user is currently loggeds in", () => {
     localStorage.clear();
     expect(component.getUser()).toBeFalsy();
     localStorage.setItem("taxi.user", JSON.stringify(

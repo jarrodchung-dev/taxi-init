@@ -6,11 +6,13 @@ import { HttpClientModule } from "@angular/common/http";
 import { FormsModule } from "@angular/forms";
 // Service Imports
 import { AuthService } from "./services/auth.service";
+import { IsRider } from "./services/is-rider.service";
 // Component Imports
 import { AppComponent } from "./app.component";
 import { SignUpComponent } from "./components/signup/signup.component";
 import { LogInComponent } from "./components/login/login.component";
 import { LandingComponent } from "./components/landing/landing.component";
+import { RiderComponent } from './components/rider/rider.component';
 
 
 @NgModule({
@@ -18,7 +20,8 @@ import { LandingComponent } from "./components/landing/landing.component";
     AppComponent, 
     SignUpComponent, 
     LogInComponent, 
-    LandingComponent
+    LandingComponent, 
+    RiderComponent
   ],
   imports: [
     BrowserModule,
@@ -28,11 +31,20 @@ import { LandingComponent } from "./components/landing/landing.component";
     RouterModule.forRoot([
       { path: "singup", component: SignUpComponent },
       { path: "login", component: LogInComponent },
+      { 
+        path: "rider",
+        component: RiderComponent,
+        canActivate: [ IsRider ],
+      },
       { path: "", component: LandingComponent }
       ], { useHash: true })
     ],
-  providers: [ AuthService ],
-  bootstrap: [ AppComponent ]
-})
+    providers: [ 
+      AuthService , 
+      IsRider 
+    ],
+    bootstrap: [ AppComponent ]
+  }
+)
 
 export class AppModule { }

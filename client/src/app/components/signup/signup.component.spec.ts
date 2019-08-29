@@ -52,8 +52,8 @@ fdescribe("SignUpComponent", () => {
     // sends the component's user data to the server from data bindings found 
     //in the HTML componenr
     component.onSubmit();
-    const request = httpMock.expectOne("http://localhost:8000/api/signup/");
+    const request = httpMock.expectOne("/api/signup/");
     request.flush(user);
-    expect(spy).toHaveBeenCalledWith("http://localhost:8000/api/login/");
+    expect(spy).toHaveBeenCalledWith("/login");
   });
 });

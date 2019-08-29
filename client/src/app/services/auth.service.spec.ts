@@ -35,7 +35,7 @@ fdescribe("Auth Service", () => {
     ).subscribe(user => {
       expect(user).toBe(userData);
     });
-    const request = httpMock.expectOne("http://localhost:8000/api/signup/");
+    const request = httpMock.expectOne("/api/signup/");
       request.flush(userData);
   });
   it("should allow existing users to log into their accounts", () => {
@@ -47,7 +47,7 @@ fdescribe("Auth Service", () => {
     ).subscribe(user => {
       expect(user).toBe(userData);
     });
-    const request = httpMock.expectOne("http://localhost:8000/api/login/");
+    const request = httpMock.expectOne("/api/login/");
     request.flush(userData);
     expect(localStorage.getItem("taxi.user")).toBe(JSON.stringify(userData));
   });
@@ -57,7 +57,7 @@ fdescribe("Auth Service", () => {
     authService.logOut().subscribe(user => {
       expect(user).toEqual(userData);
     });
-    const request = httpMock.expectOne("http://localhost:8000/api/logout/");
+    const request = httpMock.expectOne("/api/logout/");
     request.flush(userData);
     expect(localStorage.getItem("taxi.user")).toBeNull();
   });
@@ -100,7 +100,7 @@ fdescribe("Auth Service", () => {
 //     ).subscribe(user => {
 //       expect(user).toBe(userData);
 //     });
-//     const request = httpMock.expectOne("http://localhost:8000/api/signup");
+//     const request = httpMock.expectOne("/api/signup");
 //     request.flush(userData);
 //   });
 //   it("should allow existing users to log into their accounts", () => {
@@ -112,7 +112,7 @@ fdescribe("Auth Service", () => {
 //       ).subscribe(user => {
 //         expect(user).toBe(userData);
 //       });
-//       const request = httpMock.expectOne("http://localhost:8000/api/login");
+//       const request = httpMock.expectOne("/api/login");
 //       request.flush(userData);
 //       expect(localStorage.getItem("taxi.user")).toBe(JSON.stringify(userData));
 //   });
