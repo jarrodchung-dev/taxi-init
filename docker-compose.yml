@@ -2,32 +2,32 @@ version: '3.7'
 
 services:
 
-  taxi-redis:
-    container_name: taxi-redis
+  redis:
+    container_name: redis
     image: redis:5.0.5-alpine
 
-  taxi-server:
+  server:
     build:
       context: ./server
     volumes:
       - media:/usr/src/app/media
       - static:/usr/src/app/static
-    command: daphne --bind 0.0.0.0 --port 8000 taxi.asgi:application
-    container_name: taxi-server
+    command: daphne --bind 0.0.0.0 --port 8000 asgi:application
+    container_name: server
     depends_on:
-      - taxi-redis
+      - redis
     environment:
-      - REDIS_URL=redis://taxi-redis:6379/0
+      - REDIS_URL=redis://redis:6379/0
     ports:
       - 8001:8000
 
-  taxi-client:
+  client:
     build:
       context: ./client
     command: ng serve --host 0.0.0.0
-    container_name: taxi-client
+    container_name: client
     depends_on:
-      - taxi-server
+      - server
     environment:
       - CHROME_BIN=chromium-browser
     ports:
@@ -36,10 +36,10 @@ services:
   nginx:
     build:
       context: ./nginx
-    container_name: taxi-nginx
+    container_name: nginx
     depends_on:
-      - taxi-server
-      - taxi-client
+      - server
+      - client
     ports:
       - 8080:80
     restart: always

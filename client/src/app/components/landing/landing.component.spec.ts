@@ -10,21 +10,6 @@ import { AuthService } from "../../services/auth.service";
 import { UserFactory } from "../../testing/factories";
 import { LandingComponent } from "./landing.component";
 
-// fdescribe("Landing Component", () => {
-//   let component: LandingComponent;
-//   let fixture: ComponentFixture<LandingComponent>;
-  
-//   beforeEach(() => {
-//     fixture = TestBed.createComponent(LandingComponent);
-//     component = fixture.componentInstance;
-//     fixture.detectChanges();
-//   });
-//   it("should create", () => {
-//     expect(component).toBeTruthy();
-//   })
-// })
-
-
 fdescribe("LandingComponent", () => {
   let logOutButton: DebugElement;
   let component: LandingComponent;
