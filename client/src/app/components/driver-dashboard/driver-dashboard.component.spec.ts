@@ -4,20 +4,22 @@ import { RouterTestingModule } from "@angular/router/testing";
 import { Observable, of } from "rxjs";
 import { TripService } from "../../services/trip.service"; // new
 import { TripFactory } from "../../testing/factories";
-import { RiderDashboardComponent } from "./rider-dashboard.component";
+import { DriverDashboardComponent } from "./driver-dashboard.component";
 import { 
   TripCardComponent
 } from "../../components/trip-card/trip-card.component";
 
-fdescribe("Rider Dashboard Component", () => {
-  let component: RiderDashboardComponent;
-  let fixture: ComponentFixture<RiderDashboardComponent>;
+fdescribe("Driver Dashboard Component", () => {
+  let component: DriverDashboardComponent;
+  let fixture: ComponentFixture<DriverDashboardComponent>;
   const trip1 = TripFactory.create({driver: null});
   const trip2 = TripFactory.create({status: "COMPLETED"});
-  const trip3 = TripFactory.create();
+  const trip3 = TripFactory.create({status: "IN_PROGRESS"});
 
   class MockActivatedRoute {
-    data: Observable<Data> = of({ trips: [trip1, trip2, trip3] });
+    data: Observable<Data> = of({
+      trips: [trip1, trip2, trip3]
+    });
   }
 
   class MockTripService { // new
@@ -27,14 +29,19 @@ fdescribe("Rider Dashboard Component", () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [ RouterTestingModule.withRoutes([]) ],
-      declarations: [ RiderDashboardComponent, TripCardComponent ],
+      imports: [
+        RouterTestingModule.withRoutes([])
+      ],
+      declarations: [
+        DriverDashboardComponent,
+        TripCardComponent
+      ],
       providers: [
         { provide: ActivatedRoute, useClass: MockActivatedRoute },
         { provide: TripService, useClass: MockTripService } // new
       ]
     });
-    fixture = TestBed.createComponent(RiderDashboardComponent);
+    fixture = TestBed.createComponent(DriverDashboardComponent);
     component = fixture.componentInstance;
   });
 
@@ -42,6 +49,14 @@ fdescribe("Rider Dashboard Component", () => {
     fixture.whenStable().then(() => {
       fixture.detectChanges();
       expect(component.currentTrips).toEqual([trip3]);
+    });
+    component.ngOnInit();
+  }));
+
+  it("should get requested trips", async(() => {
+    fixture.whenStable().then(() => {
+      fixture.detectChanges();
+      expect(component.requestedTrips).toEqual([trip1]);
     });
     component.ngOnInit();
   }));

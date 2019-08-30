@@ -1,0 +1,44 @@
+<div class="row">
+  <div class="col-lg-12">
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <a [routerLink]="['/..']">Dashboard</a>
+        </li>
+        <li class="breadcrumb-item active">Request</li>
+      </ol>
+    </nav>
+    <div class="card">
+      <div class="card-header">
+        <div class="card-body">
+          <form #requestForm="ngForm" novalidate (ngSubmit)="onSubmit()">
+            <div class="form-group">
+              <label for="pickupAddress">Pick Up Location</label>
+              <input type="text" class="form-control" id="pickupAddress" [(ngModel)]="trip.pickup_address" name="pickupAddress" required>
+            </div>
+            <div class="form-group">
+              <label for="dropoffAddress">Dropoff Location</label>
+              <input type="text" class="form-control" ([ngModel])="trip.dropoff_address" name="dropoffAddress" required>
+            </div>
+            <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
+              <amg-marker **ngFor="let marker of markers" [latitude]="marker.lat" [longitude]="marker.lng" [label]="marker.label">
+              </amg-marker>
+            </agm-map>
+            <button class="btn btn-primary btn-block" type="submit" [disabled]="!requestForm.form.valid">
+              Submit
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--  
+The Angular Maps component is inserted right after the "pickupAddress" and before the "Submit" button.
+The [latitude] and [longitude] inputs determinne the location at the center of the map while the [zoom] value controls the area within the viewport. The higher the value, the closer the viewport zooms.
+
+The <agm-marker> tag inside the <agm-map> places a marker of the map. When the page first loads, the marker will point to the user's currrent location. As the user enters the dat into the form fields, the map will refreesh to display the markers that correspond to the pickup and dropofff locations. As the user enters the data into the form fields the mapp will refreshn to display markers that correspond to the pickup and dropoff locations.
+  
+Like the map directive, the marker requires a latitude and longitude parameters, which are passed in as labels.
+-->

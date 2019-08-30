@@ -14,7 +14,7 @@ class UserData {
 }
 
 @Component({
-  selector: "app-signup", // changed from "app-sign-up"
+  selector: "app-sign-up", // changed from "app-sign-up-up"
   templateUrl: "./signup.component.html",
   styleUrls: ["./signup.component.css"]
 })

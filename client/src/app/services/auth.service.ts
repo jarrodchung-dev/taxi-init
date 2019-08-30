@@ -28,12 +28,21 @@ export class User {
     }
     return null;
   };
+  // "isRider()" and "isDriver()" determines what role a user has and grants
+  // them access to channels
   static isRider(): boolean {
     const user = User.getUser();
     if (user == null) {
       return false;
     }
     return user.group == "rider";
+  }
+  static isDriver(): boolean {
+    const user = User.getUser();
+    if (user ===  null) {
+      return false
+    }
+    return user.group === "driver";
   }
 };
 
@@ -69,8 +78,7 @@ export class AuthService {
     const url = "/api/login/";
     return this.http.post<User>(url, {username, password}).pipe(
       tap(user => localStorage.setItem("taxi.user", JSON.stringify(user)))
-      )
-    }
+    )}
   // Logs user out of account
   logOut(
   ): Observable<any> {

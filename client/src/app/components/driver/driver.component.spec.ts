@@ -1,18 +1,20 @@
 import { ComponentFixture, TestBed } from "@angular/core/testing";
 import { RouterTestingModule } from "@angular/router/testing";
-import { RiderComponent } from "./rider.component";
+import { DriverComponent } from "./driver.component";
 
-fdescribe("Rider Component", () => {
-  let component: RiderComponent;
-  let fixture: ComponentFixture<RiderComponent>;
-  beforeEach(() =>  {
+
+fdescribe("Driver Component", () => {
+  let component: DriverComponent;
+  let fixture: ComponentFixture<DriverComponent>;
+  
+  beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [ RouterTestingModule.withRoutes([])],
-      declarations: [ RiderComponent ]
+      imports: [ RouterTestingModule.withRoutes([]) ],
+      declarations: [ DriverComponent ]
     }).compileComponents();
   });
   beforeEach(() => {
-    fixture = TestBed.createComponent(RiderComponent);
+    fixture = TestBed.createComponent(DriverComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
@@ -20,3 +22,4 @@ fdescribe("Rider Component", () => {
     expect(component).toBeTruthy();
   });
 });
+

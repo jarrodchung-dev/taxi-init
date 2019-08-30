@@ -1,0 +1,8 @@
+/*
+Angular Maps requires explicitylt set heights paraemters for maps
+in the application styling.
+*/
+
+agm-map {
+  height: 300px; 
+}

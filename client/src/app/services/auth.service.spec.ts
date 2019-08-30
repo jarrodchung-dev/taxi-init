@@ -35,8 +35,8 @@ fdescribe("Auth Service", () => {
     ).subscribe(user => {
       expect(user).toBe(userData);
     });
-    const request = httpMock.expectOne("/api/signup/");
-      request.flush(userData);
+    const request = httpMock.expectOne("/api/login/");
+    request.flush(userData);
   });
   it("should allow existing users to log into their accounts", () => {
     const userData = UserFactory.create();
@@ -69,56 +69,3 @@ fdescribe("Auth Service", () => {
     expect(User.getUser()).toBeTruthy();
   });
 });
-  
-  
-  
-
-
-// fdescribe("AuthService", () => {
-//   let authService: AuthService;
-//   let httpMock: HttpTestingController;
-//   beforeEach(() => {
-//     TestBed.configureTestingModule({
-//       imports: [ HttpClientTestingModule ],
-//       providers: [ AuthService ]
-//     });
-//     authService = TestBed.get(AuthService);
-//     httpMock = TestBed.get(HttpTestingController);
-//   // Allow new users to register
-//   it("should allow new users to create an account", () => {
-//     const userData = UserFactory.create();
-//     const photo: File = new File(
-//       ["photo"], userData.photo, {type: "image/jpeg"}
-//     );
-//     authService.signUp(
-//       userData.username,
-//       userData.first_name,
-//       userData.last_name,
-//       "test_password",
-//       userData.group,
-//       photo
-//     ).subscribe(user => {
-//       expect(user).toBe(userData);
-//     });
-//     const request = httpMock.expectOne("/api/signup");
-//     request.flush(userData);
-//   });
-//   it("should allow existing users to log into their accounts", () => {
-//      const userData = UserFactory.create();
-//      localStorage.clear();
-//      authService.logIn(
-//         userData.username,
-//         "test_password",
-//       ).subscribe(user => {
-//         expect(user).toBe(userData);
-//       });
-//       const request = httpMock.expectOne("/api/login");
-//       request.flush(userData);
-//       expect(localStorage.getItem("taxi.user")).toBe(JSON.stringify(userData));
-//   });
-
-//   });
-//   afterEach(() => {
-//     httpMock.verify();
-//   });
-// });

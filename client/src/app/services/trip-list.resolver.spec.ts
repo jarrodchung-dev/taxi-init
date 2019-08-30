@@ -3,7 +3,7 @@ import { Trip } from "../services/trip.service";
 import { TripListResolver } from "./trip-list.resolver";
 import { TripFactory } from "../testing/factories";
 
-describe("Trip List Resolver", () => {
+fdescribe("Trip List Resolver", () => {
   it("should resolve a list of trips", () => {
     const tripsMock: Trip[] = [
       TripFactory.create(),

@@ -1,8 +1,8 @@
 <div class="middle-center">
-  <h1 class="landing logo">Taxi</h1>
+  <h1 class="landing logo">Taxi.__init__()</h1>
   <div *ngIf="getUser(); then thenBlock; else elseBlock;"></div>
   <ng-template #thenBlock>
-    <a class="btn btn-primary" [routerLink]="isRider() ? '/rider' : '/driver'">Dashboard</a>
+    <a class="btn btn-primary" [routerLink]="isRider() ? '/rider' : '/driver'">__Dashboard__</a>
     <button class="btn btn-primary" (click)="logOut()">Log out</button>
   </ng-template>
   <ng-template #elseBlock>
@@ -11,6 +11,7 @@
   </ng-template>
 </div>
 
-<!-- 
-Landing page conditionally shows either "Sign Up" and "Log In" button if the user is not logged in or a "Log Out" button if the user has already been authenticated.
+<!--  
+https://github.com/testdrivenio/taxi-app/blob/master/client/src/app/components/landing/landing.component.html
+https://raw.githubusercontent.com/testdrivenio/taxi-app/master/client/src/app/components/landing/landing.component.html
 -->

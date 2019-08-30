@@ -43,7 +43,7 @@ fdescribe("LandingComponent", () => {
     request.flush({});
     expect(localStorage.getItem("taxi.user")).toBeNull();
   });
-it("should determine if a user is currently loggeds in", () => {
+it("should determine if a user is currently logged in", () => {
     localStorage.clear();
     expect(component.getUser()).toBeFalsy();
     localStorage.setItem("taxi.user", JSON.stringify(
@@ -51,7 +51,7 @@ it("should determine if a user is currently loggeds in", () => {
     ));
     expect(component.getUser()).toBeTruthy();
   });
-  it("should determine if a user is a rider", () => {
+  it("should determine which users belong to the 'users' group", () => {
     localStorage.clear();
     localStorage.setItem("taxi.user", JSON.stringify(
       UserFactory.create({group: "rider"})

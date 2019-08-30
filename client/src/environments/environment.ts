@@ -3,8 +3,9 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
-};
+  production: false,
+  GOOGLE_API_KEY: "<AIzaSyC9-wxEidE0KWP09d1dc92oKJsZKU5jeFM>"
+}
 
 /*
  * For easier debugging in development mode, you can import the following file
