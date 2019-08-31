@@ -9,6 +9,7 @@ import { map, share } from "rxjs/operators";
 export class Trip {
   // "otherUser" refers to a "driver" if a user is "rider" and vice-versa
   public otherUser: User;
+  
   constructor(
       public id?: string,
       public created?: string,
@@ -18,9 +19,8 @@ export class Trip {
       public status?: string,
       public driver?: any,
       public rider?: any
-    ) {
-      this.otherUser = User.isRider() ? this.driver : this.rider;
-    }
+    ) { this.otherUser = User.isRider() ? this.driver : this.rider; }
+  
   static create(data: any): Trip {
     return new Trip(
       data.id,
@@ -39,7 +39,6 @@ export class Trip {
   providedIn: "root"
 })
 export class TripService {
-  
   // Adds and instantiates the instance variables
   webSocket: WebSocketSubject<any>;
   messages: Observable<any>;
@@ -73,10 +72,15 @@ export class TripService {
   // object from the server
   getTrip(id: string): Observable<Trip> {
     return this.http.get<Trip>(`/api/trip/${id}/`).pipe(
-      map(trip => Trip.create(trip))  
+      map(trip => Trip.create(trip))
     );
-  }
+  }    
+  updateTrip(trip: Trip): void {
+    this.connect();
+    const message: any = {
+      type: "update.trip",
+      data: { ...trip, driver: trip.driver.id, rider: trip.rider.id }
+    }
+  };
 }
-
-// Using the public keyword on a property in the constructor tells ts compilers
-// to allow outside access to it
+      

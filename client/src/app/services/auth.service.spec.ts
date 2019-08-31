@@ -31,11 +31,11 @@ fdescribe("Auth Service", () => {
       userData.last_name,
       "test_password",
       userData.group,
-      photo
+      photo,
     ).subscribe(user => {
       expect(user).toBe(userData);
     });
-    const request = httpMock.expectOne("/api/login/");
+    const request = httpMock.expectOne("/api/signup/");
     request.flush(userData);
   });
   it("should allow existing users to log into their accounts", () => {

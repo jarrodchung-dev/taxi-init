@@ -1,17 +1,20 @@
 // Angular Module Imports
+import { CommonModule } from "@angular/common";
 import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { NgModule } from "@angular/core";
 import { RouterModule } from "@angular/router";
 import { FormsModule } from "@angular/forms";
-import { HttpClientModule } from "@angular/common/http";;
+import { HttpClientModule } from "@angular/common/http";
 import { AgmCoreModule } from "@agm/core";
 import { environment } from "../environments/environment";
+import { ToastrModule } from "@ng6-toastr-notifications";
 // Service Imports
 import { AuthService } from "./services/auth.service";
+import { TripService } from "./services/trip.service";
+import { GoogleMapsService } from "./services/google-maps.service";
 import { IsRider } from "./services/is-rider.service";
 import { IsDriver } from "./services/is-driver.service";
-import { TripService } from "./services/trip.service";
 import { TripListResolver } from "./services/trip-list.resolver";
 import { TripDetailResolver } from "./services/trip-detail.resolver";
 // Component Imports
@@ -29,7 +32,7 @@ import {
 import { 
   RiderDetailComponent
 } from "./components/rider-detail/rider-detail.component";
-;import { TripCardComponent } from "./components/trip-card/trip-card.component";
+import { TripCardComponent } from "./components/trip-card/trip-card.component";
 import { DriverComponent } from "./components/driver/driver.component";
 import { 
   DriverDashboardComponent 
@@ -47,16 +50,18 @@ import {
     RiderDetailComponent,
     TripCardComponent,
     DriverComponent,
-    DriverDashboardComponent
+    DriverDashboardComponent,
+    BrowserModule,
+    BrowserAnimationsModule,
+    ToastrModule
   ],
   imports: [
     HttpClientModule,
     BrowserModule,
     BrowserAnimationsModule,
+    CommonModule,
     FormsModule,
-    AgmCoreModule.forRoot({
-      apiKey: environment.GOOGLE_API_KEY
-    }),
+    AgmCoreModule.forRoot({ apiKey: environment.GOOGLE_API_KEY }),
     RouterModule.forRoot([
       { path: "", component: LandingComponent },
       { path: "signup", component: SignUpComponent},
@@ -98,7 +103,8 @@ import {
     IsDriver,
     TripService,
     TripListResolver,
-    TripDetailResolver
+    TripDetailResolver,
+    GoogleMapsService
   ],
   bootstrap: [ AppComponent ]
 })

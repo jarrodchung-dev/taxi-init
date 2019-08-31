@@ -1,71 +1,67 @@
-import { ComponentFixture, TestBed, async } from "@angular/core/testing";
-import { ActivatedRoute, Data } from "@angular/router";
-import { RouterTestingModule } from "@angular/router/testing";
-import { Observable, of } from "rxjs";
-import { TripService } from "../../services/trip.service"; // new
-import { TripFactory } from "../../testing/factories";
-import { DriverDashboardComponent } from "./driver-dashboard.component";
-import { 
-  TripCardComponent
-} from "../../components/trip-card/trip-card.component";
+import { Component, OnDestroy, OnInit } from "@angular/core";
+import { ActivatedRoute } from "@angular/router";
+import { Subscription } from "rxjs";
+import { ToastrManager } from "ng6-toastr-notifications";
+import { Trip, TripService } from "../../services/trip.service";
 
-fdescribe("Driver Dashboard Component", () => {
-  let component: DriverDashboardComponent;
-  let fixture: ComponentFixture<DriverDashboardComponent>;
-  const trip1 = TripFactory.create({driver: null});
-  const trip2 = TripFactory.create({status: "COMPLETED"});
-  const trip3 = TripFactory.create({status: "IN_PROGRESS"});
+@Component({
+  selector: "app-driver-dashboard",
+  templateUrl: "./driver-dashboard.component.html",
+  styleUrls: ["./driver-dashboard.component.css"]
+})
 
-  class MockActivatedRoute {
-    data: Observable<Data> = of({
-      trips: [trip1, trip2, trip3]
+export class DriverDashboardComponent implements OnInit, OnDestroy {
+  messages: Subscription;
+  trips: Trip[];
+  
+  constructor(
+    private route: ActivatedRoute,
+    private tripService: TripService,
+    private toastr: ToastrManager
+    ) {}
+  
+  get currentTrips(): Trip[] {
+    return this.trips.filter(trip => {
+      return trip.driver !== null && trip.status !== "COMPLETED";
     });
   }
-
-  class MockTripService { // new
-    messages: Observable<any> = of();
-    connect(): void {}
+  
+  get requestedTrips(): Trip[] {
+    return this.trips.filter(trip => {
+      return trip.status === "REQUESTED";
+    });
   }
-
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      imports: [
-        RouterTestingModule.withRoutes([])
-      ],
-      declarations: [
-        DriverDashboardComponent,
-        TripCardComponent
-      ],
-      providers: [
-        { provide: ActivatedRoute, useClass: MockActivatedRoute },
-        { provide: TripService, useClass: MockTripService } // new
-      ]
+  
+  get completedTrips(): Trip[] {
+    return this.trips.filter(trip => {
+      return trip.status === "COMPLETED";
     });
-    fixture = TestBed.createComponent(DriverDashboardComponent);
-    component = fixture.componentInstance;
-  });
-
-  it("should get current trips", async(() => {
-    fixture.whenStable().then(() => {
-      fixture.detectChanges();
-      expect(component.currentTrips).toEqual([trip3]);
+  }
+  
+  ngOnInit(): void {
+    this.route.data.subscribe(
+      (data: {trips: Trip[]}) => this.trips = data.trips);
+    this.tripService.connect();
+    this.messages = this.tripService.messages.subscribe((message: any) => {
+      const trip: Trip = Trip.create(message.data);
+      this.updateTrips(trip);
+      this.updateToast(trip);
     });
-    component.ngOnInit();
-  }));
-
-  it("should get requested trips", async(() => {
-    fixture.whenStable().then(() => {
-      fixture.detectChanges();
-      expect(component.requestedTrips).toEqual([trip1]);
-    });
-    component.ngOnInit();
-  }));
-
-  it("should get completed trips", async(() => {
-    fixture.whenStable().then(() => {
-      fixture.detectChanges();
-      expect(component.completedTrips).toEqual([trip2]);
-    });
-    component.ngOnInit();
-  }));
-});
+  }
+  
+  updateTrips(trip: Trip): void {
+    this.trips = this.trips.filter(thisTrip => thisTrip.id !== trip.id);
+    this.trips.push(trip);
+  }
+  
+  updateToast(trip: Trip): void {
+    if (trip.driver === null) {
+      this.toastr.infoToastr(
+      `Rider ${trip.rider.username} has requested a trip.`);
+    }
+  }
+  
+  ngOnDestroy(): void {
+    this.messages.unsubscribe();
+  }
+}

@@ -10,17 +10,16 @@ fdescribe("Trip Detail Resolver", () => {
     const tripServiceMock: any = {
       getTrip: (id: string): Observable<Trip> => {
         return new Observable<Trip>(observer => {
-          observer.next(tripMock);
-          observer.complete();
+          observer.next(tripMock); observer.complete();
         });
-      }
-    };
+      }};
+      
     const tripDetailResolver: 
       TripDetailResolver = new TripDetailResolver(tripServiceMock);
     const route: ActivatedRouteSnapshot = new ActivatedRouteSnapshot();
     route.params = {id: tripMock.id}
-    tripDetailResolver.resolve(route, null).subscribe(
-      trip => {expect(trip).toBe(tripMock);
+    tripDetailResolver.resolve(route, null).subscribe(trip => {
+      expect(trip).toBe(tripMock);
     });
   });
 });

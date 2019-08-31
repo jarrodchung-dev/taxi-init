@@ -22,10 +22,10 @@ fdescribe("Rider Detail Component", () => {
        declarations: [ RiderDetailComponent ],
        providers: [
        { provide: ActivatedRoute, useClass: MockActivateRoute }
-       ],
-     });
-     fixture = TestBed.createComponent(RiderDetailComponent);
-     component = fixture.componentInstance;
+     ],
+   });
+   fixture = TestBed.createComponent(RiderDetailComponent);
+   component = fixture.componentInstance;
   });
   it("should udpate data on initialization", async(() => {
     fixture.whenStable().then(() => {
