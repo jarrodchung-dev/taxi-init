@@ -1,5 +1,7 @@
 import {
-  HttpClientTestingModule, HttpTestingController, TestRequest
+  HttpClientTestingModule,
+  HttpTestingController,
+  TestRequest
 } from "@angular/common/http/testing";
 import { TestBed, ComponentFixture } from "@angular/core/testing";
 import { RouterTestingModule } from "@angular/router/testing";
@@ -10,7 +12,7 @@ import { AuthService } from "../../services/auth.service";
 import { UserFactory } from "../../testing/factories";
 import { LandingComponent } from "./landing.component";
 
-fdescribe("LandingComponent", () => {
+describe("LandingComponent", () => {
   let logOutButton: DebugElement;
   let component: LandingComponent;
   let fixture: ComponentFixture<LandingComponent>;
@@ -26,24 +28,24 @@ fdescribe("LandingComponent", () => {
       declarations: [ LandingComponent ],
       providers: [ AuthService ]
     });
-    fixture = TestBed.createComponent(LandingComponent);
+    fixture = TestBed.createComponent( LandingComponent );
     component = fixture.componentInstance;
-    httpMock = TestBed.get(HttpTestingController);
+    httpMock = TestBed.get( HttpTestingController );
     localStorage.setItem("taxi.user", JSON.stringify(
       UserFactory.create()
     ));
     fixture.detectChanges();
-    logOutButton = fixture.debugElement.query(
-      By.css("button.btn.btn-primary")
-    );
+    logOutButton = fixture.debugElement.query(By.css("button.btn.btn-primary"));
   });
-  it("should allow users to log out successfully", () => {
+
+  it("should allow users to log out of accounts", () => {
     logOutButton.triggerEventHandler("click", null);
-    const request: TestRequest = httpMock.expectOne("/api/logout/");
+    const request: TestRequest = httpMock.expectOne("/api/log_out/");
     request.flush({});
     expect(localStorage.getItem("taxi.user")).toBeNull();
   });
-it("should determine if a user is currently logged in", () => {
+
+  it("should indicate whether users are logged in", () => {
     localStorage.clear();
     expect(component.getUser()).toBeFalsy();
     localStorage.setItem("taxi.user", JSON.stringify(
@@ -51,14 +53,17 @@ it("should determine if a user is currently logged in", () => {
     ));
     expect(component.getUser()).toBeTruthy();
   });
-  it("should determine which users belong to the 'users' group", () => {
+
+  it("should return true if the user is a rider", () => {
     localStorage.clear();
     localStorage.setItem("taxi.user", JSON.stringify(
-      UserFactory.create({group: "rider"})
+      UserFactory.create({ group: "rider" })
     ));
     expect(component.isRider()).toBeTruthy();
   });
+
   afterEach(() => {
     httpMock.verify();
   });
+
 });

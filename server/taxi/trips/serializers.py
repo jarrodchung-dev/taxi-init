@@ -1,49 +1,44 @@
-# trips/py
-
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group
-from rest_framework.serializers import CharField
-from rest_framework.serializers import ImageField
-from rest_framework.serializers import ModelSerializer
-from rest_framework.serializers import ValidationError
+from rest_framework import serializers
 from trips.models import Trip
 from urllib.parse import urljoin
 
 
-class MediaImageField(ImageField):
-    """ Allows a user of the application to use photos for profiles """
-
+class MediaImageField(serializers.ImageField):
+    """ """
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
     def to_representation(self, value):
+        """ Returns user photo, if exists. """
         if not value:
-            return
-        return urljoin(settings.MEDIA_URL, value.name)
+            return None
+
+        return urljoin(
+            settings.MEDIA_URL,
+            value.name
+        )
 
 
-class UserSerializer(ModelSerializer):
-    """
-    Serializes user information if Meta fields are valid for the user model
-    """
-
-    password1 = CharField(write_only=True)
-    password2 = CharField(write_only=True)
-    group = CharField()
+class UserSerializer(serializers.ModelSerializer):
+    """ Serializes User model. """
+    password1 = serializers.CharField(write_only=True)
+    password2 = serializers.CharField(write_only=True)
+    group = serializers.CharField()
     photo = MediaImageField(allow_empty_file=True)
 
     def validate(self, data):
         if data["password1"] != data["password2"]:
-            raise ValidationError("Passwords must match.")
+            raise serializers.ValidationError("Passwords must match.")
         return data
 
     def create(self, validated_data):
         group_data = validated_data.pop("group")
         group, _ = Group.objects.get_or_create(name=group_data)
         data = {
-            key: value
-            for key, value in validated_data.items()
+            key: value for key, value in validated_data.items()
             if key not in ("password1", "password2")
         }
         data["password"] = validated_data["password1"]
@@ -53,6 +48,7 @@ class UserSerializer(ModelSerializer):
         return user
 
     class Meta:
+        """ UserSerializer Meta class. """
         model = get_user_model()
         fields = (
             "id",
@@ -62,26 +58,28 @@ class UserSerializer(ModelSerializer):
             "first_name",
             "last_name",
             "group",
-            "photo",
+            "photo"
         )
         read_only_fields = ("id",)
 
 
-class TripSerializer(ModelSerializer):
-    """ Serializes the trip data to pass between the client and the server """
+class TripSerializer(serializers.ModelSerializer):
+    """ Seralizes trip data. """
 
     class Meta:
+        """ TripSerializer Meta class. """
         model = Trip
         fields = "__all__"
+        # Ensures server (not serializer) updates trip information
         read_only_fields = ("id", "created", "updated")
 
 
-class ReadOnlyTripSerializer(ModelSerializer):
-    """ Serializes full User object (rather than primary_key only) """
-
+class ReadOnlyTripSerializer(serializers.ModelSerializer):
+    """ Serializes full User object, as opposed to only the primary key. """
     driver = UserSerializer(read_only=True)
     rider = UserSerializer(read_only=True)
 
     class Meta:
+        """ ReadOnlyTripSerializer Meta class. """
         model = Trip
         fields = "__all__"

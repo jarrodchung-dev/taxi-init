@@ -1,36 +1,40 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { RiderDetailComponent } from './rider-detail.component';
+import { ComponentFixture, TestBed, async } from "@angular/core/testing";
 import { ActivatedRoute, Data } from "@angular/router";
 import { RouterTestingModule } from "@angular/router/testing";
 import { Observable, of } from "rxjs";
 import { TripFactory } from "../../testing/factories";
+import { RiderDetailComponent } from "./rider-detail.component";
 
-
-fdescribe("Rider Detail Component", () => {
+describe("RiderDetailComponent", () => {
   let component: RiderDetailComponent;
   let fixture: ComponentFixture<RiderDetailComponent>;
   const trip = TripFactory.create();
-  
-  class MockActivateRoute {
+
+  class MockActivatedRoute {
     data: Observable<Data> = of({
       trip
     });
   }
+
   beforeEach(() => {
-     TestBed.configureTestingModule({
-       imports: [ RouterTestingModule.withRoutes([]) ],
-       declarations: [ RiderDetailComponent ],
-       providers: [
-       { provide: ActivatedRoute, useClass: MockActivateRoute }
-     ],
-   });
-   fixture = TestBed.createComponent(RiderDetailComponent);
-   component = fixture.componentInstance;
+    TestBed.configureTestingModule({
+      imports: [ RouterTestingModule.withRoutes([]) ],
+      declarations: [ RiderDetailComponent ],
+      providers: [
+        {
+          provide: ActivatedRoute,
+          useClass: MockActivatedRoute
+        }
+      ]
+    });
+    fixture = TestBed.createComponent( RiderDetailComponent );
+    component = fixture.componentInstance;
   });
-  it("should udpate data on initialization", async(() => {
+
+  it("should update data on init", async(() => {
     fixture.whenStable().then(() => {
       fixture.detectChanges();
-      expect(component.trip).toEqual(trip);
+      expect(component.trip).toEqual( trip );
     });
     component.ngOnInit();
   }));

@@ -3,21 +3,20 @@ import { Trip } from "../services/trip.service";
 import { TripListResolver } from "./trip-list.resolver";
 import { TripFactory } from "../testing/factories";
 
-fdescribe("Trip List Resolver", () => {
-  it("should resolve a list of trips", () => {
+describe("TripListResolver", () => {
+  it("should resolve trips lists", () => {
     const tripsMock: Trip[] = [
       TripFactory.create(),
       TripFactory.create()
     ];
-    const tripServieMock: any = {
+    const tripServiceMock: any = {
       getTrips: (): Observable<Trip[]> => {
-        return of(tripsMock);
+        return of( tripsMock );
       }
     };
-    const tripListResolver: 
-      TripListResolver = new TripListResolver(tripServieMock);
-    tripListResolver.resolve(null, null).subscribe(trips => {
-      expect(trips).toBe(tripsMock);
+    const tripListResolver: TripListResolver = new TripListResolver( tripServiceMock );
+    tripListResolver.resolve( null, null ).subscribe( trips => {
+      expect(trips).toBe( tripsMock );
     });
   });
 });

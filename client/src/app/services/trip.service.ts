@@ -1,36 +1,34 @@
 import { Injectable } from "@angular/core";
-import { User } from "./auth.service";
-import { TripFactory } from "../testing/factories";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
-import { WebSocketSubject } from "rxjs/webSocket";
 import { map, share } from "rxjs/operators";
+import { User } from "./auth.service";
+import { WebSocketSubject } from "rxjs/webSocket";
 
 export class Trip {
-  // "otherUser" refers to a "driver" if a user is "rider" and vice-versa
   public otherUser: User;
-  
   constructor(
-      public id?: string,
-      public created?: string,
-      public updated?: string,
-      public pickup_address?: string,
-      public dropoff_address?: string,
-      public status?: string,
-      public driver?: any,
-      public rider?: any
-    ) { this.otherUser = User.isRider() ? this.driver : this.rider; }
-  
-  static create(data: any): Trip {
-    return new Trip(
+    public id?: string,
+    public created?: string,
+    public updated?: string,
+    public pick_up_address?: string,
+    public drop_off_address?: string,
+    public status?: string,
+    public driver?: any,
+    public rider?: any
+  ) {
+    this.otherUser = User.isRider() ? this.driver : this.rider;
+  }
+  static create( data: any ): Trip {
+    return new Trip (
       data.id,
       data.created,
       data.updated,
-      data.pickup_address,
-      data.dropoff_address,
+      data.pick_up_address,
+      data.drop_off_address,
       data.status,
-      data.driver ? User.create(data.driver) : null,
-      User.create(data.rider)
+      data.driver ? User.create( data.driver ) : null,
+      User.create( data.rider )
     );
   }
 }
@@ -38,49 +36,54 @@ export class Trip {
 @Injectable({
   providedIn: "root"
 })
+
 export class TripService {
-  // Adds and instantiates the instance variables
+
   webSocket: WebSocketSubject<any>;
   messages: Observable<any>;
-  
-  constructor( private http: HttpClient ) {}
-  
-  // Creates "webSocket" object when rider submit a new request
+
+  constructor(
+    private http: HttpClient
+  ) {}
+
   connect(): void {
-    if (!this.webSocket || this.webSocket.closed) {
-      this.webSocket = new WebSocketSubject("ws://localhost:8000/taxi/");
+    if ( !this.webSocket || this.webSocket.closed ) {
+      this.webSocket = new WebSocketSubject("ws://localhost:8080/taxi");
       this.messages = this.webSocket.pipe(share());
-      this.messages.subscribe(message => console.log(message));
+      this.messages.subscribe( message => console.log(message) );
     }
-  }  
-  // Store the rider's trip request as "Trip" object
+  }
   getTrips(): Observable<Trip[]> {
     return this.http.get<Trip[]>("/api/trip/").pipe(
-      map(trips => trips.map(trip => Trip.create(trip)))
+      map( trips => trips.map( trip => Trip.create( trip )))
     );
   }
-  // Pushes the "Trip" to the server where "drivers" can access it
-  createTrip(trip: Trip): void {
+  createTrip( trip: Trip ): void {
     this.connect();
     const message: any = {
       type: "create.trip",
-      data: { ...trip, rider: trip.rider.id }
+      data: {
+        ...trip, rider: trip.rider.id
+      }
     };
     this.webSocket.next(message);
   };
-  // Takes an "natural key" input parameter and returns a single "Trip" 
-  // object from the server
-  getTrip(id: string): Observable<Trip> {
+  getTrip( id: string ): Observable<Trip> {
     return this.http.get<Trip>(`/api/trip/${id}/`).pipe(
-      map(trip => Trip.create(trip))
+      map( trip => Trip.create( trip ) )
     );
-  }    
-  updateTrip(trip: Trip): void {
+  };
+  updateTrip( trip: Trip ): void {
     this.connect();
     const message: any = {
       type: "update.trip",
-      data: { ...trip, driver: trip.driver.id, rider: trip.rider.id }
-    }
-  };
+      data: {
+        ...trip,
+        driver: trip.driver.id,
+        rider: trip.rider.id
+      }
+    };
+    this.webSocket.next(message);
+  }
+
 }
-      

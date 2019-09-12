@@ -12,15 +12,14 @@
   "private": true,
   "dependencies": {
     "@agm/core": "^1.0.0-beta.7",
-    "@angular/animations": "^8.2.4",
-    "@angular/common": "~8.2.3",
-    "@angular/compiler": "~8.2.3",
-    "@angular/core": "~8.2.3",
-    "@angular/forms": "~8.2.3",
-    "@angular/platform-browser": "~8.2.3",
-    "@angular/platform-browser-dynamic": "~8.2.3",
-    "@angular/router": "~8.2.3",
-    "angular2-google-maps": "^0.17.0",
+    "@angular/animations": "^8.2.6",
+    "@angular/common": "~8.2.5",
+    "@angular/compiler": "~8.2.5",
+    "@angular/core": "~8.2.5",
+    "@angular/forms": "~8.2.5",
+    "@angular/platform-browser": "~8.2.5",
+    "@angular/platform-browser-dynamic": "~8.2.5",
+    "@angular/router": "~8.2.5",
     "bootstrap": "^4.3.1",
     "bootswatch": "^4.3.1",
     "jquery": "^3.4.1",
@@ -31,10 +30,10 @@
     "zone.js": "~0.9.1"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "~0.803.0",
-    "@angular/cli": "~8.3.0",
-    "@angular/compiler-cli": "~8.2.3",
-    "@angular/language-service": "~8.2.3",
+    "@angular-devkit/build-angular": "~0.803.4",
+    "@angular/cli": "~8.3.4",
+    "@angular/compiler-cli": "~8.2.5",
+    "@angular/language-service": "~8.2.5",
     "@types/faker": "^4.1.5",
     "@types/jasmine": "~3.3.8",
     "@types/jasminewd2": "~2.0.3",
@@ -51,8 +50,6 @@
     "protractor": "~5.4.0",
     "ts-node": "~7.0.0",
     "tslint": "~5.15.0",
-    "typescript": "~3.5.3",
-    "upgrade": "^1.1.0",
-    "webpack": "^4.39.3"
+    "typescript": "~3.5.3"
   }
 }

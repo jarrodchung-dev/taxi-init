@@ -5,8 +5,7 @@ import { User } from "../services/auth.service";
 @Injectable({
   providedIn: "root"
 })
-// Service that only allows users in "rider" group can access guarded
-// "riders" route
+
 export class IsRider implements CanActivate {
   canActivate(): boolean {
     return User.isRider();

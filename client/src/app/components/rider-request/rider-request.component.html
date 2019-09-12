@@ -13,25 +13,55 @@
       <div class="card-body">
         <form #requestForm="ngForm" novalidate (ngSubmit)="onSubmit()">
           <div class="form-group">
-            <label for="pickupAddress">Pickup Location</label>
-            <input id="pickupAddress" class="form-control" type="text" [(ngModel)]="trip.pick_up_address" name="pickupAddress" required>
+            <label for="pickUpAddress">Pick up address:</label>
+            <!-- changed -->
+            <input
+              id="pickUpAddress"
+              class="form-control"
+              type="text"
+              (blur)="onUpdate()"
+              [(ngModel)]="trip.pick_up_address"
+              name="pickUpAddress"
+              required
+            >
           </div>
           <div class="form-group">
-            <label for="dropoffAddress">Dropoff Location::</label>
-            <input id="dropoffAddress" class="form-control" type="text" [(ngModel)]="trip.drop_off_address" name="dropoffAddress" required>
+            <label for="dropOffAddress">Drop off address:</label>
+            <!-- changed -->
+            <input
+              id="dropOffAddress"
+              class="form-control"
+              type="text"
+              (blur)="onUpdate()"
+              [(ngModel)]="trip.drop_off_address"
+              name="dropOffAddress"
+              required
+            >
           </div>
+          <!-- new -->
+          <button
+            class="btn btn-primary btn-block mb-3"
+            type="button"
+            (click)="onUpdate()"
+            [disabled]="!requestForm.form.valid"
+          >Update Map</button>
           <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
-            <agm-marker *ngFor="let marker of markers" [latitude]="marker.lat" [longitude]="marker.lng" [label]="marker.label">
+            <agm-marker
+                *ngFor="let marker of markers"
+                [latitude]="marker.lat"
+                [longitude]="marker.lng"
+                [label]="marker.label"
+            >
             </agm-marker>
           </agm-map>
-          <button class="btn btn-primary btn-block" type="submit" [disabled]="!requestForm.form.valid">Submit</button>
+          <button
+            class="btn btn-primary btn-block"
+            type="submit"
+            [disabled]="!requestForm.form.valid"
+          >Submit
+        </button>
         </form>
       </div>
     </div>
   </div>
 </div>
-
-<!--  
-The Directions Service response includes all of the data necessary to draw the markers and the routes connecting them on the map;
-Only markers are added -- but UI can be improved later.
--->

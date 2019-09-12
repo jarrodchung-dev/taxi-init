@@ -2,16 +2,11 @@
   <h1 class="landing logo">Taxi.__init__()</h1>
   <div *ngIf="getUser(); then thenBlock; else elseBlock;"></div>
   <ng-template #thenBlock>
-    <a class="btn btn-primary" [routerLink]="isRider() ? '/rider' : '/driver'">__Dashboard__</a>
+    <a class="btn btn-primary" [routerLink]="isRider() ? '/rider' : '/driver'">Dashboard</a>
     <button class="btn btn-primary" (click)="logOut()">Log out</button>
   </ng-template>
   <ng-template #elseBlock>
-    <a class="btn btn-primary" [routerLink]="['/login']">Log in</a>
-    <a class="btn btn-primary" [routerLink]="['/signup']">Sign up</a>
+    <a class="btn btn-primary" [routerLink]="['/log-in']">Log in</a>
+    <a class="btn btn-primary" [routerLink]="['/sign-up']">Sign up</a>
   </ng-template>
 </div>
-
-<!--  
-https://github.com/testdrivenio/taxi-app/blob/master/client/src/app/components/landing/landing.component.html
-https://raw.githubusercontent.com/testdrivenio/taxi-app/master/client/src/app/components/landing/landing.component.html
--->

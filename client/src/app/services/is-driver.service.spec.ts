@@ -1,20 +1,21 @@
-import { UserFactory } from "../testing/factories";
 import { IsDriver } from "./is-driver.service";
+import { UserFactory } from "../testing/factories";
 
-fdescribe("Is Driver", () => {
+describe("IsDriver", () => {
+
   it("should allow drivers to access routes", () => {
     const isDriver: IsDriver = new IsDriver();
     localStorage.setItem("taxi.user", JSON.stringify(
-      UserFactory.create({group: "driver"})
+      UserFactory.create({ group: "driver" })
     ));
     expect(isDriver.canActivate()).toBeTruthy();
   });
-  it("should not allow non-drivers to access a route", () => {
+
+  it("should not allow a non-driver to access a route", () => {
     const isDriver: IsDriver = new IsDriver();
     localStorage.setItem("taxi.user", JSON.stringify(
-      UserFactory.create({group: "rider"})
+      UserFactory.create({ group: "rider" })
     ));
     expect(isDriver.canActivate()).toBeFalsy();
-  });
-});
-
+  })
+})

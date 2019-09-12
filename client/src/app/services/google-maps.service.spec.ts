@@ -1,16 +1,18 @@
 import { TestBed } from "@angular/core/testing";
 import { GoogleMapsService } from "./google-maps.service";
 
-fdescribe("Google Maps Service", () => {
+describe("GoogleMapsService", () => {
   let googleMapsService: GoogleMapsService;
-  
+
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [ GoogleMapsService ]
     });
-    googleMapsService = TestBed.get(GoogleMapsService);
+    googleMapsService = TestBed.get( GoogleMapsService );
   });
-  it("should exist within the application", () => {
+
+  it("should render", () => {
     expect(googleMapsService).toBeTruthy();
   });
+
 });

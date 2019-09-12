@@ -6,8 +6,9 @@ import { Trip } from "../../services/trip.service";
   templateUrl: "./trip-card.component.html",
   styleUrls: ["./trip-card.component.css"]
 })
+
 export class TripCardComponent {
   @Input() title: string;
   @Input() trips: Trip[];
-  constructor() { }
+  constructor() {}
 }
