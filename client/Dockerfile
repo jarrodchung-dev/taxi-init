@@ -15,6 +15,9 @@ WORKDIR /usr/src/app
 
 ENV PATH /usr/src/app/node_modules/.bin:$PATH
 
+ARG GOOGLE_MAPS_API_KEY
+ENV GOOGLE_MAPS_API_KEY $GOOGLE_MAPS_API_KEY
+
 COPY package.json /usr/src/app/package.json
 COPY package-lock.json /usr/src/app/package-lock.json
 

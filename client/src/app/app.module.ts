@@ -14,6 +14,7 @@ import { AuthService } from "./services/auth.service";
 import { IsRider } from "./services/is-rider.service";
 import { IsDriver } from "./services/is-driver.service";
 import { TripService } from "./services/trip.service";
+import { GoogleMapsService } from "./services/google-maps.service";
 // Resolvers
 import { TripListResolver } from "./services/trip-list.resolver";
 import { TripDetailResolver } from "./services/trip-detail.resolver";
@@ -114,7 +115,8 @@ import {
     IsDriver,
     TripService,
     TripListResolver,
-    TripDetailResolver
+    TripDetailResolver,
+    GoogleMapsService
   ],
   bootstrap: [ AppComponent ]
 })

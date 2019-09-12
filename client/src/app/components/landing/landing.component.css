@@ -1,12 +1,13 @@
-@import url("https://fonts.googleapis.com/css?family=Patua+One");
+@import url("https://fonts.googleapis.com/css?family=Ubuntu");
 
 .logo {
-  font-family: "Patua One", sans-serif;
+  font-family: "Ubuntu";
+  font-style: normal;
   font-weight: 400;
 }
 
 .landing {
-  font-size: 72px;
+  font-size: 64px;
 }
 
 .middle-center {

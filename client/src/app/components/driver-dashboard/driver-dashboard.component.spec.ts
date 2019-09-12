@@ -16,7 +16,7 @@ describe("DriverDashboardComponent", () => {
   const tripTwo = TripFactory.create({ status: "COMPLETED" });
   const tripThree = TripFactory.create({ status: "IN_PROGRESS" });
 
-  class ModckActivatedRoute {
+  class MockActivatedRoute {
     data: Observable<Data> = of({
       trips: [ tripOne, tripTwo, tripThree ]
     });
@@ -40,7 +40,7 @@ describe("DriverDashboardComponent", () => {
       providers: [
         {
           provide: ActivatedRoute,
-          useClass: ModckActivatedRoute
+          useClass: MockActivatedRoute
         },
         {
           provide: TripService,

@@ -18,7 +18,6 @@ export class DriverDashboardComponent implements OnInit {
     private tripService: TripService,
     private toastr: ToastrManager
   ) {}
-
   get currentTrips(): Trip[] {
     return this.trips.filter( trip => {
       return trip.driver !== null && trip.status !== "COMPLETED";
@@ -29,13 +28,11 @@ export class DriverDashboardComponent implements OnInit {
       return trip.status === "REQUESTED";
     });
   }
-
   get completedTrips(): Trip[] {
     return this.trips.filter( trip => {
       return trip.status === "COMPLETED";
     });
   }
-
   ngOnInit(): void {
     this.route.data.subscribe(
       ( data: { trips: Trip[] }) => this.trips = data.trips );
@@ -46,18 +43,15 @@ export class DriverDashboardComponent implements OnInit {
       this.updateToast( trip );
     });
   }
-
   updateTrips( trip: Trip ): void {
     this.trips = this.trips.filter( thisTrip => thisTrip.id !== trip.id );
     this.trips.push( trip );
   }
-
   updateToast( trip: Trip ): void {
     if ( trip.driver === null ) {
       this.toastr.infoToastr(`Rider ${trip.rider.username} has requested a trip.`)
     }
   }
-
   ngOnDestroy(): void {
     this.messages.unsubscribe();
   }

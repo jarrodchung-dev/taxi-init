@@ -1,5 +1,5 @@
 <div class="middle-center">
-  <h1 class="landing logo">Taxi.__init__()</h1>
+  <h1 class="landing logo">Taxi</h1>
   <div *ngIf="getUser(); then thenBlock; else elseBlock;"></div>
   <ng-template #thenBlock>
     <a class="btn btn-primary" [routerLink]="isRider() ? '/rider' : '/driver'">Dashboard</a>
