@@ -1,4 +1,4 @@
 export const environment = {
   production: false,
-  GOOGLE_API_KEY: "AIzaSyC9-wxEidE0KWP09d1dc92oKJsZKU5jeFM"
+  GOOGLE_API_KEY: "<ENVIRONMENT_KEY_GOES_HERE>"
 };
