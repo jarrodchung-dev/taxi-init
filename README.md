@@ -37,6 +37,5 @@ Created a ride-sharing application incorporating an Angular front-end with a Dja
 
 # Screenshots
 
-![Login](imgs/login-and-dashboard.png)
-
+Request a ride and view your location and trip with Google Maps:
 ![RiderRequest](imgs/taxi-init-rider-request.png)
