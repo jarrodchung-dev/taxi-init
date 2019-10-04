@@ -35,6 +35,8 @@ Created a ride-sharing application incorporating an Angular front-end with a Dja
 - Built rider and driver dashboard components, connecting each channel through established WebSockets connections with the server
 - Incorporated Google Maps so that users can visualize their current locations and subscribed trip information
 
+# Screenshots
+
 ![Login](imgs/login-and-dashboard.png)
 
 ![RiderRequest](imgs/taxi-init-rider-request.png)
