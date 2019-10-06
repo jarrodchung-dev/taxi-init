@@ -2,7 +2,7 @@
 
 Overview:
 
-Created a ride-sharing application incorporating an Angular front-end with a Django back-end configured inside a single Docker container, focusing on real-time communication between the client-side and server-side logic.
+A ride-sharing application incorporating an Angular front-end with a Django back-end configured inside a single Docker container, focusing on real-time communication between the client-side and server-side logic.
 
 # Server #
 
